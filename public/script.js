@@ -1,8 +1,3 @@
-
-// import * as qna from '@tensorflow-models/qna';
-// import '@tensorflow/tfjs-core';
-// import '@tensorflow/tfjs-backend-cpu';
-// import '@tensorflow/tfjs-backend-webgl';
 import { pipeline, env } from "https://cdn.jsdelivr.net/npm/@xenova/transformers@2.6.0";
 
 let modelPromise;
@@ -13,10 +8,10 @@ let contextDiv;
 let answerDiv;
 
 const process = async () => {
+  answerDiv.innerHTML = `Loading...`;
+
   const model = await modelPromise;
   const answers = await model(input.value, contextDiv.value);
-  console.log(answers);
-  console.log(answers.answer)
   answerDiv.innerHTML = `A: ${answers.answer} <br> score=${answers.score}`;
 
 };
