@@ -5,6 +5,7 @@
 // import '@tensorflow/tfjs-backend-webgl';
 import { pipeline, env } from "https://cdn.jsdelivr.net/npm/@xenova/transformers@2.6.0";
 
+let modelPromise;
 let search;
 let STATUS;
 let input;
@@ -12,8 +13,7 @@ let contextDiv;
 let answerDiv;
 
 const process = async () => {
-  const model = await pipeline('question-answering', 'Xenova/distilbert-base-uncased-distilled-squad');
-
+  const model = await modelPromise;
   const answers = await model(input.value, contextDiv.value);
   console.log(answers);
   console.log(answers.answer)
@@ -22,10 +22,10 @@ const process = async () => {
 };
 
 window.onload = () => {
-
+  modelPromise = pipeline('question-answering', 'Xenova/distilbert-base-uncased-distilled-squad');
 // Let's test the model
   STATUS = document.getElementById('status');
-  STATUS.innerText = 'MobileBERT loaded successfully!';
+  STATUS.innerText = 'DistilBERT loaded successfully!';
   input = document.getElementById('question');
   search = document.getElementById('search');
   contextDiv = document.getElementById('context');
